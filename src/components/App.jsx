@@ -5,9 +5,6 @@ import Sort from './Sort';
 import PizzaBlock from './PizzaBlock';
 import pizzas from '../assets/pizzas.json';
 
-console.log(pizzas);
-
-
 export function App() {
   return (
     <div className="wrapper">

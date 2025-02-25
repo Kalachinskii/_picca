@@ -17,10 +17,10 @@ function PizzaBlock( {category, id, imageUrl, price, rating, sizes, title, types
                     {
                         types.map(type => (
                             (types.length > 1) ?
-                                (type == activeType) ? <li key={type} className='active'>тонкое</li> : <li key={type} >традиционное</li>
+                                <li key={type} onClick={() => setActiveType(type)} className={type == activeType ? 'active' : ''}>{type == 0 ? 'Тонкое' : 'Традиционное'}</li> 
                                 :
-                                (type == activeType) ? <li key={type} className='active'>тонкое</li> : <li key={type} className='active'>традиционное</li>
-                        ))
+                                <li key={type} className="active">{type == 0 ? 'Тонкое' : 'Традиционное'}</li> 
+                            ))
                     }
                 </ul>
                 <ul>

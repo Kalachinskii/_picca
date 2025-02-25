@@ -6,8 +6,21 @@
     display: flex;
     align-items: center;
 
-    svg {
+    .sort-up {
       margin-right: 8px;
+      cursor: pointer;
+      &:hover {
+        transform: scale(1.5);
+      }
+    }
+
+    .sort-down {
+      transform: scaleY(-1);
+      margin-right: 8px;
+      cursor: pointer;
+      &:hover {
+        transform: scale(1.5) scaleY(-1);
+      }
     }
 
     b {
