@@ -1,19 +1,26 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 function Sort() {
     const sortTypes = ["популярности", "цене", "алфавиту"];
     const [sort, setSort] = useState(0);
     const [isOpen, setIsOpen] = useState(false);
     const [isUp, setIsUp] = useState(true);
+    // создаём
+    // const svgRef = useRef(null);
 
     const sortClickHandler = () => {
         setIsUp(!isUp);
+        //                  добавление через Ref
+        // console.log(svgRef.current);
+        // svgRef.current.classList.add("add_sort_class");
     };
 
     return (
         <div className="sort">
             <div className="sort__label">
                 <svg
+                    // связываем
+                    // ref={svgRef}
                     onClick={sortClickHandler}
                     className={isUp ? "sort-down" : "sort-up"}
                     width="10"
