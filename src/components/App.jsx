@@ -2,6 +2,7 @@ import "../styles/app.scss";
 import Header from "./Header";
 // import pizzas from "../assets/pizzas.json";
 import { useEffect, useState } from "react";
+// 4. импортируем Routes, Route
 import { Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 // import NotFound from "../pages/NotFound";
@@ -27,7 +28,9 @@ export function App() {
             <Header pizzas={dataPiccas} />
             <div className="content">
                 <div className="container">
+                    {/* 5. маршруты */}
                     <Routes>
+                        {/* формируем каждый возможный маршрут */}
                         <Route
                             path="/"
                             element={<Home pizzas={dataPiccas} />}
