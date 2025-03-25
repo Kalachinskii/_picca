@@ -5,11 +5,11 @@ import { useEffect, useState } from "react";
 // 4. импортируем Routes, Route
 import { Routes, Route, useRoutes } from "react-router-dom";
 import { useRoutesWrapper } from "../hooks/useRoutesWrapper.jsx";
+import Layout from "./Layout.jsx";
 
 export function App() {
     const [dataPiccas, setDataPiccas] = useState([]);
-    // 5. Подход ООП
-    // const appRoutes = useRoutes(routes);
+    const routes = useRoutesWrapper();
 
     useEffect(() => {
         // временная БД - перекинуты данные с json
@@ -24,27 +24,17 @@ export function App() {
             });
     }, []);
 
-    // кастомный хук
-    const routes = useRoutesWrapper();
-
-    return (
-        <div className="wrapper">
-            <Header pizzas={dataPiccas} />
-            <div className="content">
-                <div className="container">
-                    {/* 6. выводим */}
-                    {routes}
-                    {/* <Routes>
-                        <Route
-                            path="/"
-                            element={<Home pizzas={dataPiccas} />}
-                        />
-                        <Route path="/cart" element={"Cart"} />
-                        <Route path="/about" element={"About"} />
-                        <Route path="*" element={"NotFound"} />
-                    </Routes> */}
-                </div>
-            </div>
-        </div>
-    );
+    return <Layout dataPiccas={dataPiccas}>{routes}</Layout>;
 }
+
+/* 
+<Routes>
+    <Route
+        path="/"
+        element={<Home pizzas={dataPiccas} />}
+    />
+    <Route path="/cart" element={"Cart"} />
+    <Route path="/about" element={"About"} />
+    <Route path="*" element={"NotFound"} />
+</Routes> 
+*/
