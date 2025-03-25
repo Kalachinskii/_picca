@@ -4,14 +4,12 @@ import Header from "./Header";
 import { useEffect, useState } from "react";
 // 4. импортируем Routes, Route
 import { Routes, Route, useRoutes } from "react-router-dom";
-import Home from "../pages/Home";
-import { routes } from "../utils/routes.jsx";
-// import NotFound from "../pages/NotFound";
+import { useRoutesWrapper } from "../hooks/useRoutesWrapper.jsx";
 
 export function App() {
     const [dataPiccas, setDataPiccas] = useState([]);
     // 5. Подход ООП
-    const appRoutes = useRoutes(routes);
+    // const appRoutes = useRoutes(routes);
 
     useEffect(() => {
         // временная БД - перекинуты данные с json
@@ -26,13 +24,16 @@ export function App() {
             });
     }, []);
 
+    // кастомный хук
+    const routes = useRoutesWrapper();
+
     return (
         <div className="wrapper">
             <Header pizzas={dataPiccas} />
             <div className="content">
                 <div className="container">
                     {/* 6. выводим */}
-                    {appRoutes}
+                    {routes}
                     {/* <Routes>
                         <Route
                             path="/"
