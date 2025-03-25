@@ -19,7 +19,6 @@ function Home({ pizzas }) {
             <div className="content__items">
                 {!loading ? (
                     pizzas.map((pizza) => (
-                        // ...pizza - прокинуть все свойства пропсом в компонент
                         <PizzaBlock key={pizza.id} {...pizza} />
                     ))
                 ) : (
