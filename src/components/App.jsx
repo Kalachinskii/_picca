@@ -24,7 +24,17 @@ export function App() {
             });
     }, []);
 
-    return <Layout dataPiccas={dataPiccas}>{routes}</Layout>;
+    // return <Layout dataPiccas={dataPiccas}>{routes}</Layout>;
+    return (
+        <Routes>
+            <Route path="/" element={<Layout dataPiccas={dataPiccas} />}>
+                <Route index element="{<Home pizzas={dataPiccas} />}" />
+                <Route path="/cart" element={"Cart"} />
+                <Route path="/about" element={"About"} />
+                <Route path="*" element={"NotFound"} />
+            </Route>
+        </Routes>
+    );
 }
 
 /* 
