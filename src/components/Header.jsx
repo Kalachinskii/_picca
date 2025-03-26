@@ -9,7 +9,7 @@ function Header() {
                 {/* по дефолту добовляет класс active */}
                 {/* либо изменить через функцию - { isActive } только в NavLink*/}
                 {/* можно запихнуть в переменную */}
-                <NavLink to={"/"} className={setActive}>
+                {/* <NavLink to={"/"} className={setActive}>
                     Главная
                 </NavLink>
                 <NavLink
@@ -19,7 +19,7 @@ function Header() {
                     }
                 >
                     Корзина
-                </NavLink>
+                </NavLink> */}
                 <Link to={"/"} className="header__logo">
                     <img width="38" src={pizzaLogo} alt="Pizza logo" />
                     <div>
