@@ -4,9 +4,7 @@ import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/Skeleton";
 import { useState } from "react";
 
-function Home({ pizzas }) {
-    const [loading, setLoading] = useState(true);
-
+function Home({ pizzas, loading }) {
     return (
         // <></> - реакт фрагмент
         <>

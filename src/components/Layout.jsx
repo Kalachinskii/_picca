@@ -10,7 +10,9 @@ export default function Layout({ children, dataPiccas }) {
 
                 <div className="content">
                     {/* <div className="container">{children}</div> */}
-                    <Outlet />
+                    <div className="container">
+                        <Outlet />
+                    </div>
                 </div>
 
                 <h1>Footer</h1>
