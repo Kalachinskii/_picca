@@ -13,7 +13,7 @@ import NotFound from "../pages/NotFound.jsx";
 export function App() {
     const [dataPiccas, setDataPiccas] = useState([]);
     const [loading, setLoading] = useState(true);
-    const routes = useRoutesWrapper();
+    // const routes = useRoutesWrapper();
 
     useEffect(() => {
         // временная БД - перекинуты данные с json

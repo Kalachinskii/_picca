@@ -1,7 +1,7 @@
 // 7. импортируем Link
 import { Link, NavLink } from "react-router-dom";
 import pizzaLogo from "../assets/img/pizza-logo.svg";
-const setActive = ({ isActive }) => (isActive ? "active-link" : "");
+// const setActive = ({ isActive }) => (isActive ? "active-link" : "");
 function Header() {
     return (
         <div className="header">
