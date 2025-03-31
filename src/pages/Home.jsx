@@ -4,13 +4,18 @@ import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/Skeleton";
 import { useState } from "react";
 
-function Home({ pizzas, loading }) {
+function Home({ pizzas, loading, setDataPiccas, setLoading }) {
+    // console.log(pizzas);
+
     return (
         // <></> - реакт фрагмент
         <>
             {" "}
             <div className="content__top">
-                <Categories />
+                <Categories
+                    setDataPiccas={setDataPiccas}
+                    setLoading={setLoading}
+                />
                 <Sort />
             </div>
             <h2 className="content__title">Все пиццы</h2>
