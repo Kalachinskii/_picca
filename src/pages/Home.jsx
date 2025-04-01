@@ -2,21 +2,51 @@ import Categories from "../components/Categories";
 import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/Skeleton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-function Home({ pizzas, loading, setDataPiccas, setLoading }) {
-    // console.log(pizzas);
+function Home() {
+    const [pizzas, setPizzas] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [activeCategory, setActiveCategory] = useState(0);
+    const [activeSort, setActiveSort] = useState(0);
+    const [isUp, setIsUp] = useState(true);
+
+    // const [sortBy, setSortBy] = useState("title");
+
+    useEffect(() => {
+        // временная БД - перекинуты данные с json
+        // &order=desc - по убыванию
+        // &sortBy=title - по имени
+        // &sortBy=price
+        // &sortBy=rating
+        fetch(
+            `https://67c45d8cc4649b9551b361e2.mockapi.io/items?category=${
+                activeCategory == 0 ? "" : activeCategory
+            }&sortBy=title&order=desc`
+        )
+            // .json() - распарсить (распоковать промис - ответ с сервера)
+            .then((response) => response.json())
+            .then((data) => setPizzas(data))
+            .finally(setLoading(false))
+            .catch((err) => {
+                // console.warn(`Возникла ошибка к серверу: ${err.message}`);
+                alert(`Возникла ошибка к серверу: ${err.message}`);
+            });
+    }, [activeCategory]);
 
     return (
-        // <></> - реакт фрагмент
         <>
-            {" "}
             <div className="content__top">
                 <Categories
-                    setDataPiccas={setDataPiccas}
-                    setLoading={setLoading}
+                    activeCategory={activeCategory}
+                    setActiveCategory={(ind) => setActiveCategory(ind)}
                 />
-                <Sort />
+                <Sort
+                    isUp={isUp}
+                    setIsUp={setIsUp}
+                    activeSort={activeSort}
+                    setActiveSort={setActiveSort}
+                />
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
@@ -25,8 +55,9 @@ function Home({ pizzas, loading, setDataPiccas, setLoading }) {
                         <PizzaBlock key={pizza.id} {...pizza} />
                     ))
                 ) : (
+                    // скелет pizzas
                     <div>
-                        {[...new Array(10)].map((_, ind) => (
+                        {[...new Array(12)].map((_, ind) => (
                             <Skeleton key={ind} />
                         ))}
                     </div>

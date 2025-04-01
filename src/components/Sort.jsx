@@ -1,10 +1,15 @@
 import React, { useRef, useState } from "react";
 
-function Sort() {
+function Sort({ activeSort, setActiveSort, isUp, setIsUp }) {
     const sortTypes = ["популярности", "цене", "алфавиту"];
-    const [sort, setSort] = useState(0);
+
+    // const sortTypes = {
+    //     rating: "популярности",
+    //     price: "цене",
+    //     title: "алфавиту",
+    // };
+
     const [isOpen, setIsOpen] = useState(false);
-    const [isUp, setIsUp] = useState(true);
     // создаём
     // const svgRef = useRef(null);
 
@@ -35,7 +40,9 @@ function Sort() {
                     />
                 </svg>
                 <b>Сортировка по:</b>
-                <span onClick={() => setIsOpen(true)}>{sortTypes[sort]}</span>
+                <span onClick={() => setIsOpen(true)}>
+                    {sortTypes[activeSort]}
+                </span>
             </div>
             {/* Условный рендеринг */}
             {isOpen && (
@@ -43,10 +50,10 @@ function Sort() {
                     <ul>
                         {sortTypes.map((type, id) => (
                             <li
-                                className={sort === id ? "active" : ""}
+                                className={activeSort === id ? "active" : ""}
                                 key={id}
                                 onClick={() => {
-                                    setSort(id), setIsOpen(false);
+                                    setActiveSort(id), setIsOpen(false);
                                 }}
                             >
                                 {type}
