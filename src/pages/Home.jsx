@@ -15,8 +15,8 @@ function Home() {
 
     useEffect(() => {
         const category = activeCategory == 0 ? "" : activeCategory;
-        const sort = ["title", "price", "rating"][activeSort.type];
-        const order = activeSort.isUp ? "desc" : "";
+        const sort = ["rating", "price", "title"][activeSort.type];
+        const order = activeSort.isUp ? "asc" : "desc";
         fetch(
             `https://67c45d8cc4649b9551b361e2.mockapi.io/items?category=${category}&sortBy=${sort}&order=${order}`
         )
