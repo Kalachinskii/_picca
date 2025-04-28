@@ -12,18 +12,11 @@ function Home() {
         type: 0,
         isUp: true,
     });
-    // const [isUp, setIsUp] = useState(true);
-    // const [sortBy, setSortBy] = useState("title");
 
     useEffect(() => {
-        // временная БД - перекинуты данные с json
-        // &order=desc - по убыванию
-        // &sortBy=title - по имени
-        // &sortBy=price
-        // &sortBy=rating
         const category = activeCategory == 0 ? "" : activeCategory;
-        const sort = "title";
-        const order = "desc";
+        const sort = ["title", "price", "rating"][activeSort.type];
+        const order = activeSort.isUp ? "desc" : "";
         fetch(
             `https://67c45d8cc4649b9551b361e2.mockapi.io/items?category=${category}&sortBy=${sort}&order=${order}`
         )
@@ -34,7 +27,7 @@ function Home() {
                 // console.warn(`Возникла ошибка к серверу: ${err.message}`);
                 alert(`Возникла ошибка к серверу: ${err.message}`);
             });
-    }, [activeCategory]);
+    }, [activeCategory, activeSort]);
 
     return (
         <>
