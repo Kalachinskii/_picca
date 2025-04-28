@@ -8,9 +8,11 @@ function Home() {
     const [pizzas, setPizzas] = useState([]);
     const [loading, setLoading] = useState(true);
     const [activeCategory, setActiveCategory] = useState(0);
-    const [activeSort, setActiveSort] = useState(0);
-    const [isUp, setIsUp] = useState(true);
-
+    const [activeSort, setActiveSort] = useState({
+        type: 0,
+        isUp: true,
+    });
+    // const [isUp, setIsUp] = useState(true);
     // const [sortBy, setSortBy] = useState("title");
 
     useEffect(() => {
@@ -41,12 +43,7 @@ function Home() {
                     activeCategory={activeCategory}
                     setActiveCategory={(ind) => setActiveCategory(ind)}
                 />
-                <Sort
-                    isUp={isUp}
-                    setIsUp={setIsUp}
-                    activeSort={activeSort}
-                    setActiveSort={setActiveSort}
-                />
+                <Sort active={activeSort} setActive={setActiveSort} />
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">

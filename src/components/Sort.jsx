@@ -1,33 +1,18 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 
-function Sort({ activeSort, setActiveSort, isUp, setIsUp }) {
+function Sort({ active, setActive }) {
     const sortTypes = ["популярности", "цене", "алфавиту"];
-
-    // const sortTypes = {
-    //     rating: "популярности",
-    //     price: "цене",
-    //     title: "алфавиту",
-    // };
-
     const [isOpen, setIsOpen] = useState(false);
-    // создаём
-    // const svgRef = useRef(null);
-
     const sortClickHandler = () => {
-        setIsUp(!isUp);
-        //                  добавление через Ref
-        // console.log(svgRef.current);
-        // svgRef.current.classList.add("add_sort_class");
+        setActive({ type: active.type, isUp: !active.isUp });
     };
 
     return (
         <div className="sort">
             <div className="sort__label">
                 <svg
-                    // связываем
-                    // ref={svgRef}
                     onClick={sortClickHandler}
-                    className={isUp ? "sort-down" : "sort-up"}
+                    className={active.isUp ? "sort-down" : "sort-up"}
                     width="10"
                     height="6"
                     viewBox="0 0 10 6"
@@ -41,7 +26,7 @@ function Sort({ activeSort, setActiveSort, isUp, setIsUp }) {
                 </svg>
                 <b>Сортировка по:</b>
                 <span onClick={() => setIsOpen(true)}>
-                    {sortTypes[activeSort]}
+                    {sortTypes[active.type]}
                 </span>
             </div>
             {/* Условный рендеринг */}
@@ -50,10 +35,11 @@ function Sort({ activeSort, setActiveSort, isUp, setIsUp }) {
                     <ul>
                         {sortTypes.map((type, id) => (
                             <li
-                                className={activeSort === id ? "active" : ""}
+                                className={active.type === id ? "active" : ""}
                                 key={id}
                                 onClick={() => {
-                                    setActiveSort(id), setIsOpen(false);
+                                    setActive({ type: id, isUp: active.isUp }),
+                                        setIsOpen(false);
                                 }}
                             >
                                 {type}
