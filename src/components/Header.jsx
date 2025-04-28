@@ -1,25 +1,12 @@
 // 7. импортируем Link
 import { Link, NavLink } from "react-router-dom";
 import pizzaLogo from "../assets/img/pizza-logo.svg";
+import { Search } from "./Search";
 // const setActive = ({ isActive }) => (isActive ? "active-link" : "");
 function Header() {
     return (
         <div className="header">
             <div className="container">
-                {/* по дефолту добовляет класс active */}
-                {/* либо изменить через функцию - { isActive } только в NavLink*/}
-                {/* можно запихнуть в переменную */}
-                {/* <NavLink to={"/"} className={setActive}>
-                    Главная
-                </NavLink>
-                <NavLink
-                    to={"/cart"}
-                    className={({ isActive }) =>
-                        isActive ? "active-link" : ""
-                    }
-                >
-                    Корзина
-                </NavLink> */}
                 <Link to={"/"} className="header__logo">
                     <img width="38" src={pizzaLogo} alt="Pizza logo" />
                     <div>
@@ -27,10 +14,8 @@ function Header() {
                         <p>самая вкусная пицца во вселенной</p>
                     </div>
                 </Link>
+                <Search />
                 <div className="header__cart">
-                    {/* 6. <а> - перезагружает */}
-                    {/* <a href="/cart.html" className="button button--cart"> */}
-                    {/* 8. используем Link */}
                     <Link to={"cart"} className="button button--cart">
                         <span>520 ₽</span>
                         <div className="button__delimiter"></div>
