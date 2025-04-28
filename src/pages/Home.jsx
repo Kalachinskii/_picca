@@ -19,12 +19,12 @@ function Home() {
         // &sortBy=title - по имени
         // &sortBy=price
         // &sortBy=rating
+        const category = activeCategory == 0 ? "" : activeCategory;
+        const sort = "title";
+        const order = "desc";
         fetch(
-            `https://67c45d8cc4649b9551b361e2.mockapi.io/items?category=${
-                activeCategory == 0 ? "" : activeCategory
-            }&sortBy=title&order=desc`
+            `https://67c45d8cc4649b9551b361e2.mockapi.io/items?category=${category}&sortBy=${sort}&order=${order}`
         )
-            // .json() - распарсить (распоковать промис - ответ с сервера)
             .then((response) => response.json())
             .then((data) => setPizzas(data))
             .finally(setLoading(false))
