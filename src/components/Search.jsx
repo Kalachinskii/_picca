@@ -1,12 +1,19 @@
+import { useState } from "react";
+
 export function Search() {
+    const [value, setValue] = useState("");
+
     return (
         <div className="search-box">
             <input
+                onChange={(e) => setValue(e.target.value)}
+                value={value}
                 type="text"
                 className="search-wrapper"
                 placeholder="поиск по имени"
             />
             <svg
+                onClick={() => console.log(value)}
                 className="search-btn"
                 xmlns="http://www.w3.org/2000/svg"
                 width="32"
