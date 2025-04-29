@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 
-function Sort() {
+function Sort({ active, setActive }) {
     const sortTypes = ["популярности", "цене", "алфавиту"];
-    const [sort, setSort] = useState(0);
     const [isOpen, setIsOpen] = useState(false);
-    const [isUp, setIsUp] = useState(true);
-
     const sortClickHandler = () => {
-        setIsUp(!isUp);
+        setActive({ type: active.type, isUp: !active.isUp });
     };
 
     return (
@@ -15,7 +12,7 @@ function Sort() {
             <div className="sort__label">
                 <svg
                     onClick={sortClickHandler}
-                    className={isUp ? "sort-down" : "sort-up"}
+                    className={active.isUp ? "sort-down" : "sort-up"}
                     width="10"
                     height="6"
                     viewBox="0 0 10 6"
@@ -28,7 +25,9 @@ function Sort() {
                     />
                 </svg>
                 <b>Сортировка по:</b>
-                <span onClick={() => setIsOpen(true)}>{sortTypes[sort]}</span>
+                <span onClick={() => setIsOpen(true)}>
+                    {sortTypes[active.type]}
+                </span>
             </div>
             {/* Условный рендеринг */}
             {isOpen && (
@@ -36,10 +35,11 @@ function Sort() {
                     <ul>
                         {sortTypes.map((type, id) => (
                             <li
-                                className={sort === id ? "active" : ""}
+                                className={active.type === id ? "active" : ""}
                                 key={id}
                                 onClick={() => {
-                                    setSort(id), setIsOpen(false);
+                                    setActive({ type: id, isUp: active.isUp }),
+                                        setIsOpen(false);
                                 }}
                             >
                                 {type}
