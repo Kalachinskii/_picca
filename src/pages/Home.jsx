@@ -3,6 +3,8 @@ import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/Skeleton";
 import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { AppContext } from "../components/App";
 
 function Home() {
     const [pizzas, setPizzas] = useState([]);
@@ -12,6 +14,10 @@ function Home() {
         type: 0,
         isUp: true,
     });
+
+    // использовать контекст
+    const { hi, age } = useContext(AppContext);
+    console.log(hi);
 
     useEffect(() => {
         const category = activeCategory == 0 ? "" : activeCategory;
