@@ -1,7 +1,16 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AppContext } from "./App";
 
 export function Search() {
     const [value, setValue] = useState("");
+    const { pizzas, setPizzas } = useContext(AppContext);
+
+    const searchHandler = () => {
+        const filter = pizzas.filter((item) => {
+            return item.title.toLowerCase().indexOf(value.toLowerCase()) != -1;
+        });
+        setPizzas(filter);
+    };
 
     return (
         <div className="search-box">
@@ -13,7 +22,7 @@ export function Search() {
                 placeholder="поиск по имени"
             />
             <svg
-                onClick={() => console.log(value)}
+                onClick={searchHandler}
                 className="search-btn"
                 xmlns="http://www.w3.org/2000/svg"
                 width="32"

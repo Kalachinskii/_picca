@@ -7,33 +7,32 @@ import { useContext } from "react";
 import { AppContext } from "../components/App";
 
 function Home() {
-    const [pizzas, setPizzas] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [activeCategory, setActiveCategory] = useState(0);
-    const [activeSort, setActiveSort] = useState({
-        type: 0,
-        isUp: true,
-    });
+    // const [loading, setLoading] = useState(true);
+    // const [activeCategory, setActiveCategory] = useState(0);
+    // const [activeSort, setActiveSort] = useState({
+    //     type: 0,
+    //     isUp: true,
+    // });
 
     // использовать контекст
-    const { hi, age } = useContext(AppContext);
-    console.log(hi);
+    const { pizzas, setPizzas, loading, activeCategory, activeSort } =
+        useContext(AppContext);
 
-    useEffect(() => {
-        const category = activeCategory == 0 ? "" : activeCategory;
-        const sort = ["rating", "price", "title"][activeSort.type];
-        const order = activeSort.isUp ? "asc" : "desc";
-        fetch(
-            `https://67c45d8cc4649b9551b361e2.mockapi.io/items?category=${category}&sortBy=${sort}&order=${order}`
-        )
-            .then((response) => response.json())
-            .then((data) => setPizzas(data))
-            .finally(setLoading(false))
-            .catch((err) => {
-                // console.warn(`Возникла ошибка к серверу: ${err.message}`);
-                alert(`Возникла ошибка к серверу: ${err.message}`);
-            });
-    }, [activeCategory, activeSort]);
+    // useEffect(() => {
+    //     const category = activeCategory == 0 ? "" : activeCategory;
+    //     const sort = ["rating", "price", "title"][activeSort.type];
+    //     const order = activeSort.isUp ? "asc" : "desc";
+    //     fetch(
+    //         `https://67c45d8cc4649b9551b361e2.mockapi.io/items?category=${category}&sortBy=${sort}&order=${order}`
+    //     )
+    //         .then((response) => response.json())
+    //         .then((data) => setPizzas(data))
+    //         .finally(setLoading(false))
+    //         .catch((err) => {
+    //             // console.warn(`Возникла ошибка к серверу: ${err.message}`);
+    //             alert(`Возникла ошибка к серверу: ${err.message}`);
+    //         });
+    // }, [activeCategory, activeSort]);
 
     return (
         <>

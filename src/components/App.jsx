@@ -13,11 +13,36 @@ import NotFound from "../pages/NotFound.jsx";
 export const AppContext = createContext();
 
 export function App() {
+    const [pizzas, setPizzas] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [activeCategory, setActiveCategory] = useState(0);
+    const [activeSort, setActiveSort] = useState({
+        type: 0,
+        isUp: true,
+    });
+
+    useEffect(() => {
+        const category = activeCategory == 0 ? "" : activeCategory;
+        const sort = ["rating", "price", "title"][activeSort.type];
+        const order = activeSort.isUp ? "asc" : "desc";
+        fetch(
+            `https://67c45d8cc4649b9551b361e2.mockapi.io/items?category=${category}&sortBy=${sort}&order=${order}`
+        )
+            .then((response) => response.json())
+            .then((data) => setPizzas(data))
+            .finally(setLoading(false))
+            .catch((err) => {
+                // console.warn(`Возникла ошибка к серверу: ${err.message}`);
+                alert(`Возникла ошибка к серверу: ${err.message}`);
+            });
+    }, [activeCategory, activeSort]);
+
     return (
-        <AppContext.Provider value={{ hi: "hello", age: 22 }}>
+        <AppContext.Provider
+            value={{ pizzas, setPizzas, loading, activeCategory, activeSort }}
+        >
             <Routes>
                 <Route path="/" element={<Layout />}>
-                    {/* вывод контекста для примера */}
                     <Route index element={<Home />} />
                     <Route path="/cart" element={<Cart />} />
                     <Route path="*" element={<NotFound />} />
