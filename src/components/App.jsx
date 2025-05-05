@@ -32,14 +32,24 @@ export function App() {
             .then((data) => setPizzas(data))
             .finally(setLoading(false))
             .catch((err) => {
-                // console.warn(`Возникла ошибка к серверу: ${err.message}`);
                 alert(`Возникла ошибка к серверу: ${err.message}`);
             });
     }, [activeCategory, activeSort]);
 
     return (
         <AppContext.Provider
-            value={{ pizzas, setPizzas, loading, activeCategory, activeSort }}
+            value={{
+                setPizzas,
+                pizzas,
+                setLoading,
+                loading,
+                setActiveCategory,
+                activeCategory,
+                setActiveSort,
+                activeSort,
+                setLoading,
+                loading,
+            }}
         >
             <Routes>
                 <Route path="/" element={<Layout />}>

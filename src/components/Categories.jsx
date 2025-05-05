@@ -1,4 +1,8 @@
-function Categories({ activeCategory, setActiveCategory }) {
+import { useContext } from "react";
+import { AppContext } from "./App";
+
+function Categories() {
+    const { activeCategory, setActiveCategory } = useContext(AppContext);
     const categories = [
         "Все",
         "Мясные",
