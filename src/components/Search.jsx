@@ -3,13 +3,10 @@ import { AppContext } from "./App";
 
 export function Search() {
     const [value, setValue] = useState("");
-    const { pizzas, setPizzas } = useContext(AppContext);
+    const { setSearchValue } = useContext(AppContext);
 
     const searchHandler = () => {
-        const filter = pizzas.filter((item) => {
-            return item.title.toLowerCase().indexOf(value.toLowerCase()) != -1;
-        });
-        setPizzas(filter);
+        setSearchValue(value);
     };
 
     return (

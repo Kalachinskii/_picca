@@ -11,8 +11,10 @@ import Home from "../pages/Home.jsx";
 import NotFound from "../pages/NotFound.jsx";
 
 export const AppContext = createContext();
+// export const UserContext = createContext();
 
 export function App() {
+    const [searchValue, setSearchValue] = useState("");
     const [pizzas, setPizzas] = useState([]);
     const [loading, setLoading] = useState(true);
     const [activeCategory, setActiveCategory] = useState(0);
@@ -26,7 +28,7 @@ export function App() {
         const sort = ["rating", "price", "title"][activeSort.type];
         const order = activeSort.isUp ? "asc" : "desc";
         fetch(
-            `https://67c45d8cc4649b9551b361e2.mockapi.io/items?category=${category}&sortBy=${sort}&order=${order}`
+            `https://67c45d8cc4649b9551b361e2.mockapi.io/items?category=${category}&sortBy=${sort}&order=${order}&title=${searchValue}`
         )
             .then((response) => response.json())
             .then((data) => setPizzas(data))
@@ -34,7 +36,7 @@ export function App() {
             .catch((err) => {
                 alert(`Возникла ошибка к серверу: ${err.message}`);
             });
-    }, [activeCategory, activeSort]);
+    }, [activeCategory, activeSort, searchValue]);
 
     return (
         <AppContext.Provider
@@ -49,6 +51,7 @@ export function App() {
                 activeSort,
                 setLoading,
                 loading,
+                setSearchValue,
             }}
         >
             <Routes>
