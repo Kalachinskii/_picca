@@ -5,10 +5,6 @@ export function Search() {
     const [value, setValue] = useState("");
     const { setSearchValue } = useContext(AppContext);
 
-    const searchHandler = () => {
-        setSearchValue(value);
-    };
-
     return (
         <div className="search-box">
             <input
@@ -19,7 +15,7 @@ export function Search() {
                 placeholder="поиск по имени"
             />
             <svg
-                onClick={searchHandler}
+                onClick={() => setSearchValue(value)}
                 className="search-btn"
                 xmlns="http://www.w3.org/2000/svg"
                 width="32"

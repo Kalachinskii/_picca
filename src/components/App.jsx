@@ -22,6 +22,19 @@ export function App() {
         type: 0,
         isUp: true,
     });
+    const store = {
+        setPizzas,
+        pizzas,
+        setLoading,
+        loading,
+        setActiveCategory,
+        activeCategory,
+        setActiveSort,
+        activeSort,
+        setLoading,
+        loading,
+        setSearchValue,
+    };
 
     useEffect(() => {
         const category = activeCategory == 0 ? "" : activeCategory;
@@ -54,21 +67,7 @@ export function App() {
     }, [activeCategory, activeSort, searchValue]);
 
     return (
-        <AppContext.Provider
-            value={{
-                setPizzas,
-                pizzas,
-                setLoading,
-                loading,
-                setActiveCategory,
-                activeCategory,
-                setActiveSort,
-                activeSort,
-                setLoading,
-                loading,
-                setSearchValue,
-            }}
-        >
+        <AppContext.Provider value={store}>
             <Routes>
                 <Route path="/" element={<Layout />}>
                     <Route index element={<Home />} />
