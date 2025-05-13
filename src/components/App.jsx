@@ -27,11 +27,26 @@ export function App() {
         const category = activeCategory == 0 ? "" : activeCategory;
         const sort = ["rating", "price", "title"][activeSort.type];
         const order = activeSort.isUp ? "asc" : "desc";
-        fetch(
-            `https://67c45d8cc4649b9551b361e2.mockapi.io/items?category=${category}&sortBy=${sort}&order=${order}&title=${searchValue}`
-        )
-            .then((response) => response.json())
-            .then((data) => setPizzas(data))
+
+        Promise.all([
+            fetch(
+                `https://67c45d8cc4649b9551b361e2.mockapi.io/items?category=${category}&sortBy=${sort}&order=${order}`
+            ),
+            fetch(
+                `https://67c45d8cc4649b9551b361e2.mockapi.io/items?&search=${searchValue}`
+            ),
+        ])
+            .then(([sorted, searched]) => {
+                return Promise.all([sorted.json(), searched.json()]);
+            })
+            .then(([sorted, searched]) => {
+                const newData = sorted.filter((sortedItem) =>
+                    searched.some(
+                        (searchedItem) => sortedItem.id == searchedItem.id
+                    )
+                );
+                setPizzas(newData);
+            })
             .finally(setLoading(false))
             .catch((err) => {
                 alert(`Возникла ошибка к серверу: ${err.message}`);
