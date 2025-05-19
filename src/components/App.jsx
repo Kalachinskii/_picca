@@ -9,15 +9,21 @@ import Layout from "./Layout.jsx";
 import { Cart } from "../pages/Cart.jsx";
 import Home from "../pages/Home.jsx";
 import NotFound from "../pages/NotFound.jsx";
+import { useDispatch, useSelector } from "react-redux";
 
 export const AppContext = createContext();
 // export const UserContext = createContext();
 
 export function App() {
+    // вытащить из хранилища, state - это store
+    const activeCategory = useSelector((state) => state.filter.category);
+    // записать в хранилище
+    useDispatch();
+
     const [searchValue, setSearchValue] = useState("");
     const [pizzas, setPizzas] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [activeCategory, setActiveCategory] = useState(0);
+    // const [activeCategory, setActiveCategory] = useState(0);
     const [activeSort, setActiveSort] = useState({
         type: 0,
         isUp: true,
@@ -27,8 +33,8 @@ export function App() {
         pizzas,
         setLoading,
         loading,
-        setActiveCategory,
-        activeCategory,
+        // setActiveCategory,
+        // activeCategory,
         setActiveSort,
         activeSort,
         setLoading,
