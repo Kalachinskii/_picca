@@ -28,7 +28,7 @@ const filterSlice = createSlice({
         // setCategory: function(state) {
         // setCategory: (state) => {
         // state - это начальное значение заданное в initialState
-        // actions - это объект, в котором .paylod лежит переданное значение т.е. actions.payload = ind
+        // actions - это объект, в котором .paylod лежит переданное значение т.е. actions.payload = id
         setCategory(state, actions) {
             state.category = actions.payload;
         },
