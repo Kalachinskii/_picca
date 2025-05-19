@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AppContext } from "./App";
 
-function Sort({ active, setActive }) {
+function Sort() {
+    const { activeSort, setActiveSort } = useContext(AppContext);
     const sortTypes = ["популярности", "цене", "алфавиту"];
     const [isOpen, setIsOpen] = useState(false);
     const sortClickHandler = () => {
-        setActive({ type: active.type, isUp: !active.isUp });
+        setActiveSort({ type: activeSort.type, isUp: !activeSort.isUp });
     };
 
     return (
@@ -12,7 +14,7 @@ function Sort({ active, setActive }) {
             <div className="sort__label">
                 <svg
                     onClick={sortClickHandler}
-                    className={active.isUp ? "sort-down" : "sort-up"}
+                    className={activeSort.isUp ? "sort-down" : "sort-up"}
                     width="10"
                     height="6"
                     viewBox="0 0 10 6"
@@ -26,7 +28,7 @@ function Sort({ active, setActive }) {
                 </svg>
                 <b>Сортировка по:</b>
                 <span onClick={() => setIsOpen(true)}>
-                    {sortTypes[active.type]}
+                    {sortTypes[activeSort.type]}
                 </span>
             </div>
             {/* Условный рендеринг */}
@@ -35,10 +37,15 @@ function Sort({ active, setActive }) {
                     <ul>
                         {sortTypes.map((type, id) => (
                             <li
-                                className={active.type === id ? "active" : ""}
+                                className={
+                                    activeSort.type === id ? "active" : ""
+                                }
                                 key={id}
                                 onClick={() => {
-                                    setActive({ type: id, isUp: active.isUp }),
+                                    setActiveSort({
+                                        type: id,
+                                        isUp: activeSort.isUp,
+                                    }),
                                         setIsOpen(false);
                                 }}
                             >

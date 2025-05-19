@@ -1,4 +1,10 @@
-function Categories({ activeCategory, setActiveCategory }) {
+import { useDispatch, useSelector } from "react-redux";
+import { setCategory } from "../store/slices/filterSlice";
+
+function Categories() {
+    const activeCategory = useSelector((state) => state.filter.category);
+    const dispatch = useDispatch();
+
     const categories = [
         "Все",
         "Мясные",
@@ -17,7 +23,8 @@ function Categories({ activeCategory, setActiveCategory }) {
                         className={
                             activeCategory === id ? "activeCategory" : ""
                         }
-                        onClick={() => setActiveCategory(id)}
+                        // dispatch - передаём action
+                        onClick={() => dispatch(setCategory(ind))}
                     >
                         {category}
                     </li>

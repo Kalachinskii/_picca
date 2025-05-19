@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AppContext } from "./App";
 
 export function Search() {
     const [value, setValue] = useState("");
+    const { setSearchValue } = useContext(AppContext);
 
     return (
         <div className="search-box">
@@ -13,7 +15,7 @@ export function Search() {
                 placeholder="поиск по имени"
             />
             <svg
-                onClick={() => console.log(value)}
+                onClick={() => setSearchValue(value)}
                 className="search-btn"
                 xmlns="http://www.w3.org/2000/svg"
                 width="32"

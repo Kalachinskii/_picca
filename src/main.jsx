@@ -5,10 +5,14 @@ import { App } from "./components/App";
 // 1. npm i react-router-dom
 // 2. импорт функции BrowserRouter
 import { BrowserRouter } from "react-router-dom";
+// npm i @reduxjs/toolkit react-redux
+import { Provider } from "react-redux";
+import { store } from "./store";
 
 createRoot(document.getElementById("root")).render(
-    // 3. обворачиваем BrowserRouter
     <BrowserRouter>
-        <App />
+        <Provider store={store}>
+            <App />
+        </Provider>
     </BrowserRouter>
 );
