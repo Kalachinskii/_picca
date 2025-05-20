@@ -9,6 +9,8 @@ export function Search() {
         <div className="search-box">
             <input
                 onChange={(e) => setValue(e.target.value)}
+                // запрос при Enter
+                onKeyDown={(e) => e.keyCode == 13 && setSearchValue(value)}
                 value={value}
                 type="text"
                 className="search-wrapper"
