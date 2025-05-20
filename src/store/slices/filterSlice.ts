@@ -32,10 +32,13 @@ const filterSlice = createSlice({
         setCategory(state, actions) {
             state.category = actions.payload;
         },
+        setSort(state, actions) {
+            state.sort = actions.payload;
+        },
     },
 });
 
 // вытаскиваем метод
 //reducers = .actions !!!
-export const { setCategory } = filterSlice.actions;
+export const { setCategory, setSort } = filterSlice.actions;
 export default filterSlice.reducer;

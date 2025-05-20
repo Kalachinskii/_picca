@@ -1,20 +1,24 @@
 import React, { useContext, useState } from "react";
 import { AppContext } from "./App";
+import { useDispatch, useSelector } from "react-redux";
+import { setSort } from "../store/slices/filterSlice";
 
 function Sort() {
-    const { activeSort, setActiveSort } = useContext(AppContext);
+    // const { activeSort, setActiveSort } = useContext(AppContext);
+    const { type, isUp } = useSelector((state) => state.filter.sort);
+    const dispatch = useDispatch();
     const sortTypes = ["популярности", "цене", "алфавиту"];
     const [isOpen, setIsOpen] = useState(false);
-    const sortClickHandler = () => {
-        setActiveSort({ type: activeSort.type, isUp: !activeSort.isUp });
-    };
+    // const sortClickHandler = () => {
+    //     setActiveSort({ type: type, isUp: !isUp });
+    // };
 
     return (
         <div className="sort">
             <div className="sort__label">
                 <svg
-                    onClick={sortClickHandler}
-                    className={activeSort.isUp ? "sort-down" : "sort-up"}
+                    onClick={() => dispatch(setSort({ type, isUp: !isUp }))}
+                    className={isUp ? "sort-down" : "sort-up"}
                     width="10"
                     height="6"
                     viewBox="0 0 10 6"
@@ -27,9 +31,7 @@ function Sort() {
                     />
                 </svg>
                 <b>Сортировка по:</b>
-                <span onClick={() => setIsOpen(true)}>
-                    {sortTypes[activeSort.type]}
-                </span>
+                <span onClick={() => setIsOpen(true)}>{sortTypes[type]}</span>
             </div>
             {/* Условный рендеринг */}
             {isOpen && (
@@ -37,15 +39,10 @@ function Sort() {
                     <ul>
                         {sortTypes.map((type, id) => (
                             <li
-                                className={
-                                    activeSort.type === id ? "active" : ""
-                                }
+                                className={type === id ? "active" : ""}
                                 key={id}
                                 onClick={() => {
-                                    setActiveSort({
-                                        type: id,
-                                        isUp: activeSort.isUp,
-                                    }),
+                                    dispatch(setSort({ type: id, isUp })),
                                         setIsOpen(false);
                                 }}
                             >
