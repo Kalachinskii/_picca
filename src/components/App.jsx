@@ -61,16 +61,20 @@ export function App() {
                 return Promise.all([sorted.json(), searched.json()]);
             })
             .then(([sorted, searched]) => {
+                // if (searched !== "Not found") {
                 const newData = sorted.filter((sortedItem) =>
                     searched.some(
                         (searchedItem) => sortedItem.id == searchedItem.id
                     )
                 );
                 setPizzas(newData);
+                // } else {
+                //     console.log("Пиццы не найдены");
+                // }
             })
             .finally(setLoading(false))
             .catch((err) => {
-                alert(`Возникла ошибка к серверу: ${err.message}`);
+                console.log(`Возникла ошибка к серверу: ${err}`);
             });
     }, [activeCategory, isUp, type, searchValue]);
 
