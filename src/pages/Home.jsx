@@ -14,7 +14,10 @@ function Home() {
                 <Categories />
                 <Sort />
             </div>
-            <h2 className="content__title">Все пиццы</h2>
+            <h2 className="content__title">
+                {loading == false &&
+                    (pizzas.length ? "Все пиццы" : "Пиццы не найдены")}
+            </h2>
             <div className="content__items">
                 {!loading ? (
                     pizzas.map((pizza) => (

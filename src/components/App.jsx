@@ -4,7 +4,7 @@ import "../styles/app.scss";
 import { createContext, useEffect, useState } from "react";
 // 4. импортируем Routes, Route
 import { Routes, Route, useRoutes } from "react-router-dom";
-import { useRoutesWrapper } from "../hooks/useRoutesWrapper.jsx";
+// import { useRoutesWrapper } from "../hooks/useRoutesWrapper.jsx";
 import Layout from "./Layout.jsx";
 import { Cart } from "../pages/Cart.jsx";
 import Home from "../pages/Home.jsx";
@@ -17,6 +17,8 @@ export const AppContext = createContext();
 export function App() {
     // вытащить из хранилища, state - это store
     const activeCategory = useSelector((state) => state.filter.category);
+    const { type, isUp } = useSelector((state) => state.filter.sort);
+
     // записать в хранилище
     useDispatch();
 
@@ -24,10 +26,10 @@ export function App() {
     const [pizzas, setPizzas] = useState([]);
     const [loading, setLoading] = useState(true);
     // const [activeCategory, setActiveCategory] = useState(0);
-    const [activeSort, setActiveSort] = useState({
-        type: 0,
-        isUp: true,
-    });
+    // const [activeSort, setActiveSort] = useState({
+    //     type: 0,
+    //     isUp: true,
+    // });
     const store = {
         setPizzas,
         pizzas,
@@ -35,8 +37,8 @@ export function App() {
         loading,
         // setActiveCategory,
         // activeCategory,
-        setActiveSort,
-        activeSort,
+        // setActiveSort,
+        // activeSort,
         setLoading,
         loading,
         setSearchValue,
@@ -44,8 +46,8 @@ export function App() {
 
     useEffect(() => {
         const category = activeCategory == 0 ? "" : activeCategory;
-        const sort = ["rating", "price", "title"][activeSort.type];
-        const order = activeSort.isUp ? "asc" : "desc";
+        const sort = ["rating", "price", "title"][type];
+        const order = isUp ? "asc" : "desc";
 
         Promise.all([
             fetch(
@@ -59,18 +61,22 @@ export function App() {
                 return Promise.all([sorted.json(), searched.json()]);
             })
             .then(([sorted, searched]) => {
+                // if (searched !== "Not found") {
                 const newData = sorted.filter((sortedItem) =>
                     searched.some(
                         (searchedItem) => sortedItem.id == searchedItem.id
                     )
                 );
                 setPizzas(newData);
+                // } else {
+                //     console.log("Пиццы не найдены");
+                // }
             })
             .finally(setLoading(false))
             .catch((err) => {
-                alert(`Возникла ошибка к серверу: ${err.message}`);
+                console.log(`Возникла ошибка к серверу: ${err}`);
             });
-    }, [activeCategory, activeSort, searchValue]);
+    }, [activeCategory, isUp, type, searchValue]);
 
     return (
         <AppContext.Provider value={store}>
