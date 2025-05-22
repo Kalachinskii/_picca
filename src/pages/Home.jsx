@@ -15,9 +15,8 @@ function Home() {
                 <Sort />
             </div>
             <h2 className="content__title">
-                {pizzas.length && loading == false
-                    ? "Все пиццы"
-                    : "Пиццы не найдены"}
+                {loading == false &&
+                    (pizzas.length ? "Все пиццы" : "Пиццы не найдены")}
             </h2>
             <div className="content__items">
                 {!loading ? (

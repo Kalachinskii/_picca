@@ -1,6 +1,6 @@
-import React from "react";
-
 export const Cart = () => {
+    // cart = [{ id, title, count, price }];
+
     return (
         <div className="content">
             <div className="container container--cart">
