@@ -26,7 +26,6 @@ export function App() {
   useDispatch();
 
   const [searchValue, setSearchValue] = useState("");
-  // const [pizzas, setPizzas] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const store = {

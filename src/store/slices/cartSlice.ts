@@ -7,9 +7,9 @@ interface IInitialState {
 }
 
 const initialState: IInitialState = {
-  items: [],
-  total: 0,
-  count: 0,
+  items: [], // [ {id: 1, price: 250}, ]
+  total: 1000,
+  count: 3,
 };
 
 const cartSlice = createSlice({
@@ -18,7 +18,14 @@ const cartSlice = createSlice({
   reducers: {
     addItem(state, actions) {
       const id = actions.payload;
-      // state.items =
+      const ind = state.items.findIndex((item) => item.id == id);
+      if (ind == -1) {
+        // qty - кол товара
+        const item = { id, qty: 1 };
+        state.items.push(item);
+      } else {
+        state.items[ind].qty += 1;
+      }
     },
     deleteItem(state, actions) {},
   },
