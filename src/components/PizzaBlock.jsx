@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../store/slices/cartSlice";
 
@@ -17,9 +17,11 @@ function PizzaBlock({
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
 
-  const ind = cartItems.findIndex((item) => item.id == id);
-  let qty = 0;
-  if (ind != -1) qty = cartItems[ind].qty;
+  const ind = useMemo(() => {
+    return cartItems.findIndex((item) => item.id === id);
+  }, [cartItems, id]);
+
+  const qty = ind !== -1 ? cartItems[ind].qty : 0;
 
   return (
     <div className="pizza-block">

@@ -21,7 +21,7 @@ const cartSlice = createSlice({
       const ind = state.items.findIndex((item) => item.id == id);
       if (ind == -1) {
         // qty - кол товара
-        const item = { id, qty: 1 };
+        const item: { id: number; qty: number } = { id, qty: 1 };
         state.items.push(item);
       } else {
         state.items[ind].qty += 1;
