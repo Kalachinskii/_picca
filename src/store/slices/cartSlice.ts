@@ -8,7 +8,7 @@ interface IInitialState {
 
 const initialState: IInitialState = {
   items: [], // [ {id: 1, price: 250}, ]
-  total: 1000,
+  total: 0,
   count: 0,
 };
 
@@ -31,6 +31,7 @@ const cartSlice = createSlice({
         return (count += item.qty);
       }, 0);
 
+      // Общая стоимость - нет цены отложено
       // state.total = state.items.reduce((count, item) => {
       //   return (count += item.qty);
       // }, 0);
