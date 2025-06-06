@@ -9,7 +9,7 @@ interface IInitialState {
 const initialState: IInitialState = {
   items: [], // [ {id: 1, price: 250}, ]
   total: 1000,
-  count: 3,
+  count: 0,
 };
 
 const cartSlice = createSlice({
@@ -26,6 +26,14 @@ const cartSlice = createSlice({
       } else {
         state.items[ind].qty += 1;
       }
+      // Колличество товаров
+      state.count = state.items.reduce((count, item) => {
+        return (count += item.qty);
+      }, 0);
+
+      // state.total = state.items.reduce((count, item) => {
+      //   return (count += item.qty);
+      // }, 0);
     },
     deleteItem(state, actions) {},
   },
