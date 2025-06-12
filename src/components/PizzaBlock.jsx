@@ -16,7 +16,7 @@ function PizzaBlock({
   const [activeType, setActiveType] = useState(0);
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
-
+  const item = { id, imageUrl, title, price };
   const ind = useMemo(() => {
     return cartItems.findIndex((item) => item.id === id);
   }, [cartItems, id]);
@@ -61,7 +61,7 @@ function PizzaBlock({
         <div className="pizza-block__price">от {price} ₽</div>
         <div
           className="button button--outline button--add"
-          onClick={() => dispatch(addItem(id))}
+          onClick={() => dispatch(addItem(item))}
         >
           <svg
             width="12"

@@ -4,10 +4,11 @@ interface IInitialState {
   items: { id: number; qty: number }[];
   total: number;
   count: number;
+  qty?: number;
 }
 
 const initialState: IInitialState = {
-  items: [{ id: 1, qty: 3 }], // [ {id: 1, price: 250}, ]
+  items: [], // [ { id: 1, qty: 3 }, ] - !нету бд иной подход
   total: 0,
   count: 0,
 };
@@ -17,12 +18,19 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addItem(state, actions) {
-      const id = actions.payload;
+      // {
+      //  id: 6,
+      //  imageUrl: '...45a00d.avif',
+      //  title: 'Крэйзи пепперони',
+      //  price: 580
+      // } + qty: n
+      const id = actions.payload.id;
       const ind = state.items.findIndex((item) => item.id == id);
       if (ind == -1) {
         // qty - кол товара
-        const item: { id: number; qty: number } = { id, qty: 1 };
-        state.items.push(item);
+        // const item: { id: number; qty: number } = { id, qty: 1 };
+        state.items.push({ ...actions.payload, qty: 1 });
+        console.log(state);
       } else {
         state.items[ind].qty += 1;
       }
