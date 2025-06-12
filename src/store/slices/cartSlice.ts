@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface IInitialState {
-  items: [];
+  items: { id: number; qty: number }[];
   total: number;
   count: number;
 }
 
 const initialState: IInitialState = {
-  items: [], // [ {id: 1, price: 250}, ]
+  items: [{ id: 1, qty: 3 }], // [ {id: 1, price: 250}, ]
   total: 0,
   count: 0,
 };
