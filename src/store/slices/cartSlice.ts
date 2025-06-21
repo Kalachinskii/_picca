@@ -18,26 +18,32 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addItem(state, actions) {
-      // {
-      //  id: 6,
-      //  imageUrl: '...45a00d.avif',
-      //  title: 'Крэйзи пепперони',
-      //  price: 580
-      // } + qty: n
       const id = actions.payload.id;
       const ind = state.items.findIndex((item) => item.id == id);
       if (ind == -1) {
-        // qty - кол товара
-        // const item: { id: number; qty: number } = { id, qty: 1 };
+        const { id, imageUrl, title, price, activeType, activeSize } =
+          actions.payload;
+        const item = {
+          id,
+          imageUrl,
+          title,
+          price,
+          detaild: [
+            {
+              type: activeType,
+              size: [{ size: activeSize, qty: 1 }],
+            },
+          ],
+        };
         state.items.push({ ...actions.payload, qty: 1 });
-        console.log(state);
+        console.log(item);
       } else {
         state.items[ind].qty += 1;
       }
       // Колличество товаров
-      state.count = state.items.reduce((count, item) => {
-        return (count += item.qty);
-      }, 0);
+      // state.count = state.items.reduce((count, item) => {
+      //   return (count += item.qty);
+      // }, 0);
 
       // Общая стоимость - нет цены отложено
       // state.total = state.items.reduce((count, item) => {

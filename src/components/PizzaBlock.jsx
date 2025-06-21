@@ -16,10 +16,10 @@ function PizzaBlock({
   const [activeType, setActiveType] = useState(0);
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
-  const item = { id, imageUrl, title, price };
   const ind = useMemo(() => {
     return cartItems.findIndex((item) => item.id === id);
   }, [cartItems, id]);
+  const item = { id, imageUrl, title, price, activeSize, activeType };
 
   const qty = ind !== -1 ? cartItems[ind].qty : 0;
 
