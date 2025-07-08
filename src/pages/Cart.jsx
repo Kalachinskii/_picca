@@ -4,6 +4,9 @@ export const Cart = () => {
     // cart = [{ id, title, count, price }];
     const pizzas = useSelector((state) => state.pizzas.items);
     const cart = useSelector((state) => state.cart.items);
+    // костылики
+    const types = ["тонкое", "традиционное"];
+    const sizes = [26, 30, 40];
 
     //   cart.forEach(cartItem => pizzas.find(item => item.id == cartItem.id));
 
@@ -100,7 +103,17 @@ export const Cart = () => {
                                     </div>
                                     <div className="cart__item-info">
                                         <h3>{pizza.title}</h3>
-                                        <p>тонкое тесто, 26 см.</p>
+                                        <p>
+                                            {types[pizza.detaild[0].type] +
+                                                " тесто, "}
+                                            {
+                                                sizes[
+                                                    pizza.detaild[0].size[0]
+                                                        .size
+                                                ]
+                                            }{" "}
+                                            см.
+                                        </p>
                                     </div>
                                     <div className="cart__item-count">
                                         <div className="button button--outline button--circle cart__item-count-minus">
@@ -121,7 +134,7 @@ export const Cart = () => {
                                                 />
                                             </svg>
                                         </div>
-                                        <b>{"1"}</b>
+                                        <b>{pizza.detaild[0].size[0].qty}</b>
                                         <div className="button button--outline button--circle cart__item-count-plus">
                                             <svg
                                                 width="10"
