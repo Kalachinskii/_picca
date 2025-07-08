@@ -1,5 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+interface IItem {
+  id: number;
+  imageUrl: string;
+  title: string;
+  price: number;
+  detaild: {
+    type: number;
+    size: {
+      size: number;
+      qty: number;
+    };
+  };
+}
 interface IInitialState {
   items: { id: number; qty: number }[];
   total: number;
@@ -23,7 +36,7 @@ const cartSlice = createSlice({
       if (ind == -1) {
         const { id, imageUrl, title, price, activeType, activeSize } =
           actions.payload;
-        const item = {
+        const item: IItem = {
           id,
           imageUrl,
           title,
@@ -35,8 +48,8 @@ const cartSlice = createSlice({
             },
           ],
         };
-        state.items.push({ ...actions.payload, qty: 1 });
-        console.log(item);
+        state.items.push(item);
+        // console.log(item);
       } else {
         state.items[ind].qty += 1;
       }
