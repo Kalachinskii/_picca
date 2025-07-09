@@ -7,6 +7,7 @@ export const Cart = () => {
     // костылики
     const types = ["тонкое", "традиционное"];
     const sizes = [26, 30, 40];
+    // console.log(pizzas);
 
     //   cart.forEach(cartItem => pizzas.find(item => item.id == cartItem.id));
 

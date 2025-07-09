@@ -31,9 +31,12 @@ const cartSlice = createSlice({
     initialState,
     reducers: {
         addItem(state, actions) {
-            const id = actions.payload.id;
-            const ind = state.items.findIndex((item) => item.id == id);
-            if (ind == -1) {
+            const { id, imageUrl, title, price, activeSize, activeType } =
+                actions.payload;
+            const itemIndex = state.items.findIndex((item) => item.id == id);
+
+            // пицца не найдена
+            if (itemIndex == -1) {
                 const { id, imageUrl, title, price, activeType, activeSize } =
                     actions.payload;
                 const item: IItem = {
@@ -49,19 +52,41 @@ const cartSlice = createSlice({
                     ],
                 };
                 state.items.push(item);
-                // console.log(item);
+                // данная пицца есть
             } else {
-                state.items[ind].detaild[0].size[0].qty += 1;
-            }
-            // Колличество товаров
-            // state.count = state.items.reduce((count, item) => {
-            //   return (count += item.qty);
-            // }, 0);
+                // state.items[itemIndex].detaild[0].size[0].qty += 1;
+                const detaildTypeIndex = state.items[
+                    itemIndex
+                ].detaild.findIndex((el) => el.type == activeType);
 
-            // Общая стоимость - нет цены отложено
-            // state.total = state.items.reduce((count, item) => {
-            //   return (count += item.qty);
-            // }, 0);
+                if (detaildTypeIndex != -1) {
+                    const typeSizeIndex = state.items[itemIndex].detaild[
+                        detaildTypeIndex
+                    ].size.findIndex((el) => el.size == activeSize);
+                    // если вид пиццы уже имееться и размер совпадают
+                    if (typeSizeIndex != -1) {
+                        state.items[itemIndex].detaild[detaildTypeIndex].size[
+                            typeSizeIndex
+                        ].qty++;
+                        // есть вид пиццы но иной размер
+                    } else {
+                        const sizesItem = {
+                            size: activeSize,
+                            qty: 1,
+                        };
+                        state.items[itemIndex].detaild[
+                            detaildTypeIndex
+                        ].size.push(sizesItem);
+                    }
+                    // если нету пиццы с таким типом то добавляем
+                } else {
+                    const detaildItem = {
+                        type: activeType,
+                        size: [{ size: activeSize, qty: 1 }],
+                    };
+                    state.items[itemIndex].detaild.push(detaildItem);
+                }
+            }
         },
         deleteItem(state, actions) {},
     },
