@@ -21,7 +21,7 @@ function PizzaBlock({
   }, [cartItems, id]);
   const item = { id, imageUrl, title, price, activeSize, activeType };
 
-  const qty = ind !== -1 ? cartItems[ind].qty : 0;
+  const qty = ind !== -1 ? cartItems[ind].totalQty : 0;
 
   return (
     <div className="pizza-block">
