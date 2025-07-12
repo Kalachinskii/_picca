@@ -4,6 +4,9 @@ export const Cart = () => {
   // cart = [{ id, title, count, price }];
   const pizzas = useSelector((state) => state.pizzas.items);
   const cart = useSelector((state) => state.cart.items);
+  const total = useSelector((state) => state.cart.total);
+  const count = useSelector((state) => state.cart.count);
+
   // костылики
   const types = ["тонкое", "традиционное"];
   const sizes = [26, 30, 40];
@@ -179,11 +182,11 @@ export const Cart = () => {
             <div className="cart__bottom-details">
               <span>
                 {" "}
-                Всего пицц: <b>3 шт.</b>{" "}
+                Всего пицц: <b>{count} шт.</b>{" "}
               </span>
               <span>
                 {" "}
-                Сумма заказа: <b>900 ₽</b>{" "}
+                Сумма заказа: <b>{total} ₽</b>{" "}
               </span>
             </div>
             <div className="cart__bottom-buttons">
