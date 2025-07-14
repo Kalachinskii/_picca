@@ -11,7 +11,7 @@ import Home from "../pages/Home.jsx";
 import NotFound from "../pages/NotFound.jsx";
 import { useDispatch, useSelector } from "react-redux";
 // импорт слайса - action
-import { setPizzas } from "../store/slices/pizzasSlice.js";
+import { setPizzas, fetchPizzas } from "../store/slices/pizzasSlice.js";
 
 interface Pizza {
   id: number;
@@ -38,10 +38,6 @@ export function App() {
   const { type, isUp } = useSelector((state) => state.filter.sort);
   const pizzas = useSelector((state) => state.pizzas.items);
   const dispatch = useDispatch();
-
-  // записать в хранилище
-  useDispatch();
-
   const [searchValue, setSearchValue] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -54,6 +50,11 @@ export function App() {
     loading,
     setSearchValue,
   };
+
+  // начало рефакторинга кода
+  useEffect(() => {
+    dispatch(fetchPizzas());
+  }, []);
 
   useEffect(() => {
     const category = activeCategory == 0 ? "" : activeCategory;
