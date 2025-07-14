@@ -13,7 +13,7 @@ function PizzaBlock({
   types,
 }) {
   const [activeSize, setActiveSize] = useState(0);
-  const [activeType, setActiveType] = useState(0);
+  const [activeType, setActiveType] = useState(types[0]);
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
 
@@ -26,8 +26,6 @@ function PizzaBlock({
     return { ind, qty };
   }, [cartItems, id]);
   const item = { id, imageUrl, title, price, activeSize, activeType };
-
-  //console.log(qty); //изменяеться вёрстка кол-во товаров
 
   return (
     <div className="pizza-block">
