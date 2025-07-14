@@ -26,8 +26,7 @@
   }
 
   &:hover {
-    // background-color: darken($orange, 8%); - устарел
-    background-color: color.scale($orange, $lightness: -8%);
+    background-color: darken($orange, 8%);
   }
 
   &:active {
@@ -85,8 +84,7 @@
     }
 
     &:active {
-      // background-color: darken($orange, 8%);
-      background-color: color.scale($orange, $lightness: -8%);
+      background-color: darken($orange, 8%);
     }
   }
 
