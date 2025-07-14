@@ -13,7 +13,24 @@ import { useDispatch, useSelector } from "react-redux";
 // импорт слайса - action
 import { setPizzas } from "../store/slices/pizzasSlice.js";
 
-export const AppContext = createContext();
+interface Pizza {
+  id: number;
+  title: string;
+  price: number;
+  imageUrl: string;
+  sizes: number[];
+  types: number[];
+  rating: number;
+}
+
+interface AppContextType {
+  pizzas: Pizza[];
+  loading: boolean;
+  searchValue: string;
+  setSearchValue: (value: string) => void;
+}
+
+export const AppContext = createContext<AppContextType | null>(null);
 
 export function App() {
   // вытащить из хранилища, state - это store
