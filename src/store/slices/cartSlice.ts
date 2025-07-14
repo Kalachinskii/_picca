@@ -1,28 +1,32 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface IItem {
+interface ISizeItem {
+  size: number;
+  qty: number;
+}
+
+interface IDetaildsItem {
+  type: number;
+  size: ISizeItem[];
+}
+
+interface ICartItem {
   id: number;
   imageUrl: string;
   title: string;
   price: number;
   totalQty: number;
-  detaild: {
-    type: number;
-    size: {
-      size: number;
-      qty: number;
-    };
-  };
+  detaild: IDetaildsItem[];
 }
 interface IInitialState {
-  items: { id: number; qty: number }[];
+  items: ICartItem[];
   total: number;
   count: number;
   qty?: number;
 }
 
 const initialState: IInitialState = {
-  items: [], // [ { id: 1, qty: 3 }, ] - !нету бд иной подход
+  items: [],
   total: 0,
   count: 0,
 };
@@ -40,7 +44,7 @@ const cartSlice = createSlice({
       if (itemIndex == -1) {
         const { id, imageUrl, title, price, activeType, activeSize } =
           actions.payload;
-        const item: IItem = {
+        const item: ICartItem = {
           id,
           imageUrl,
           title,
@@ -54,6 +58,8 @@ const cartSlice = createSlice({
           ],
         };
         state.items.push(item);
+        state.count = state.count + 1;
+        state.total = state.total + price;
         // данная пицца есть
       } else {
         // state.items[itemIndex].detaild[0].size[0].qty += 1;
@@ -70,6 +76,8 @@ const cartSlice = createSlice({
             state.items[itemIndex].detaild[detaildTypeIndex].size[typeSizeIndex]
               .qty++;
             state.items[itemIndex].totalQty++;
+            state.count = state.count + 1;
+            state.total = state.total + price;
             // есть вид пиццы но иной размер
           } else {
             const sizesItem = {
@@ -80,6 +88,8 @@ const cartSlice = createSlice({
               sizesItem
             );
             state.items[itemIndex].totalQty++;
+            state.count = state.count + 1;
+            state.total = state.total + price;
           }
           // если нету пиццы с таким типом то добавляем
         } else {
@@ -89,12 +99,44 @@ const cartSlice = createSlice({
           };
           state.items[itemIndex].detaild.push(detaildItem);
           state.items[itemIndex].totalQty++;
+          state.count = state.count + 1;
+          state.total = state.total + price;
         }
       }
     },
-    deleteItem(state, actions) {},
+    deleteItem(state, actions) {
+      const { id, imageUrl, title, price, activeType, activeSize } =
+        actions.payload;
+      state.items.forEach((item) => {
+        if (item.id == id) {
+          item.detaild.forEach((detaildItem) => {
+            if (detaildItem.type == activeType) {
+              detaildItem.size.forEach((sizeItem, ind) => {
+                if (sizeItem.size == activeSize) {
+                  if (sizeItem.qty <= 1) {
+                    detaildItem.size.splice(ind, 1);
+                  } else {
+                    sizeItem.qty--;
+                  }
+                  item.totalQty--;
+                  state.count--;
+                  state.total = state.total - price;
+
+                  if (state.count == 0) state.items = [];
+                }
+              });
+            }
+          });
+        }
+      });
+    },
+    clearItems(state) {
+      state.items = [];
+      state.count = 0;
+      state.total = 0;
+    },
   },
 });
 
-export const { addItem, deleteItem } = cartSlice.actions;
+export const { addItem, deleteItem, clearItems } = cartSlice.actions;
 export default cartSlice.reducer;

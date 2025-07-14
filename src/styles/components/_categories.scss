@@ -1,4 +1,4 @@
-@import '../variables';
+@import "../variables";
 
 .categories {
   ul {
@@ -22,7 +22,7 @@
         background-color: darken(#f9f9f9, 5%);
       }
 
-      &.active {
+      &.activeCategory {
         background-color: #282828;
         color: #fff;
       }

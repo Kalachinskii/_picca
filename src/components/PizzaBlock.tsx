@@ -13,23 +13,19 @@ function PizzaBlock({
   types,
 }) {
   const [activeSize, setActiveSize] = useState(0);
-  const [activeType, setActiveType] = useState(0);
+  const [activeType, setActiveType] = useState(types[0]);
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
 
   // костылики
-  let qty = 0;
-  const ind = useMemo(() => {
+  // let qty = 0;
+  const { ind, qty } = useMemo(() => {
     // не переращитывает ind
     const ind = cartItems.findIndex((item) => item.id === id);
-    if (ind !== -1) {
-      qty = cartItems[ind].totalQty;
-    }
-    return ind;
-  }, [cartItems, id, qty]);
+    const qty = ind !== -1 ? cartItems[ind].totalQty : 0;
+    return { ind, qty };
+  }, [cartItems, id]);
   const item = { id, imageUrl, title, price, activeSize, activeType };
-
-  // console.log(qty); изменяеться вёрстка кол-во товаров
 
   return (
     <div className="pizza-block">
