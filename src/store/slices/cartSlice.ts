@@ -125,8 +125,13 @@ const cartSlice = createSlice({
         }
       });
     },
+    clearItems(state) {
+      state.items = [];
+      state.count = 0;
+      state.total = 0;
+    },
   },
 });
 
-export const { addItem, deleteItem } = cartSlice.actions;
+export const { addItem, deleteItem, clearItems } = cartSlice.actions;
 export default cartSlice.reducer;
