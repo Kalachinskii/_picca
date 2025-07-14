@@ -1,18 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+interface ISizeItem {
+  size: number;
+  qty: number;
+}
+
+interface IDetaildsItem {
+  type: number;
+  size: ISizeItem[];
+}
+
 interface IItem {
   id: number;
   imageUrl: string;
   title: string;
   price: number;
   totalQty: number;
-  detaild: {
-    type: number;
-    size: {
-      size: number;
-      qty: number;
-    }[];
-  }[];
+  detaild: IDetaildsItem[];
 }
 interface IInitialState {
   items: { id: number; qty: number }[];
@@ -22,7 +26,7 @@ interface IInitialState {
 }
 
 const initialState: IInitialState = {
-  items: [], // [ { id: 1, qty: 3 }, ] - !нету бд иной подход
+  items: [],
   total: 0,
   count: 0,
 };
@@ -111,6 +115,9 @@ const cartSlice = createSlice({
                   } else {
                     sizeItem.qty--;
                   }
+                  item.totalQty--;
+                  // state.count--;
+                  // state.total = state.total - price;
                 }
               });
             }
