@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { CartContent } from "../components/CartContent";
+import { Link } from "react-router-dom";
 
 export const Cart = () => {
   const cart = useSelector((state) => state.cart.items);
@@ -105,8 +106,8 @@ export const Cart = () => {
                 </span>
               </div>
               <div className="cart__bottom-buttons">
-                <a
-                  href="/"
+                <Link
+                  to="/"
                   className="button button--outline button--add go-back-btn"
                 >
                   <svg
@@ -126,7 +127,7 @@ export const Cart = () => {
                   </svg>
 
                   <span>Вернуться назад</span>
-                </a>
+                </Link>
                 <div className="button pay-btn">
                   <span>Оплатить сейчас</span>
                 </div>
