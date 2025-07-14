@@ -10,7 +10,7 @@ interface IDetaildsItem {
   size: ISizeItem[];
 }
 
-interface IItem {
+interface ICartItem {
   id: number;
   imageUrl: string;
   title: string;
@@ -19,7 +19,7 @@ interface IItem {
   detaild: IDetaildsItem[];
 }
 interface IInitialState {
-  items: { id: number; qty: number }[];
+  items: ICartItem[];
   total: number;
   count: number;
   qty?: number;
@@ -44,7 +44,7 @@ const cartSlice = createSlice({
       if (itemIndex == -1) {
         const { id, imageUrl, title, price, activeType, activeSize } =
           actions.payload;
-        const item: IItem = {
+        const item: ICartItem = {
           id,
           imageUrl,
           title,
@@ -119,8 +119,8 @@ const cartSlice = createSlice({
                     sizeItem.qty--;
                   }
                   item.totalQty--;
-                  // state.count--;
-                  // state.total = state.total - price;
+                  state.count--;
+                  state.total = state.total - price;
                 }
               });
             }

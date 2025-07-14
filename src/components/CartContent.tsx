@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import emptyCart from "../assets/img/empty-cart.png";
 import { addItem, deleteItem } from "../store/slices/cartSlice";
+import { RootState } from "../store";
 
 export function CartContent() {
-  const cart = useSelector((state) => state.cart.items);
+  const cart = useSelector((state: RootState) => state.cart.items);
   const dispatch = useDispatch();
 
   // костылики
