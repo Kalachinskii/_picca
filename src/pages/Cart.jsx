@@ -102,11 +102,9 @@ export const Cart = () => {
             {cart.length > 0 && (
               <div className="cart__bottom-details">
                 <span>
-                  {" "}
                   Всего пицц: <b>{count} шт.</b>{" "}
                 </span>
                 <span>
-                  {" "}
                   Сумма заказа: <b>{total} ₽</b>{" "}
                 </span>
               </div>

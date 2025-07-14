@@ -77,6 +77,7 @@ const cartSlice = createSlice({
               .qty++;
             state.items[itemIndex].totalQty++;
             state.count = state.count + 1;
+            state.total = state.total + price;
             // есть вид пиццы но иной размер
           } else {
             const sizesItem = {
@@ -88,6 +89,7 @@ const cartSlice = createSlice({
             );
             state.items[itemIndex].totalQty++;
             state.count = state.count + 1;
+            state.total = state.total + price;
           }
           // если нету пиццы с таким типом то добавляем
         } else {
@@ -98,6 +100,7 @@ const cartSlice = createSlice({
           state.items[itemIndex].detaild.push(detaildItem);
           state.items[itemIndex].totalQty++;
           state.count = state.count + 1;
+          state.total = state.total + price;
         }
       }
     },
