@@ -121,6 +121,8 @@ const cartSlice = createSlice({
                   item.totalQty--;
                   state.count--;
                   state.total = state.total - price;
+
+                  if (state.count == 0) state.items = [];
                 }
               });
             }
