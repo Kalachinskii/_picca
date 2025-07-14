@@ -11,8 +11,8 @@ interface IItem {
     size: {
       size: number;
       qty: number;
-    };
-  };
+    }[];
+  }[];
 }
 interface IInitialState {
   items: { id: number; qty: number }[];
@@ -55,8 +55,6 @@ const cartSlice = createSlice({
         };
         state.items.push(item);
         state.count = state.count + 1;
-        console.log(state.count);
-
         state.total = state.total + price;
         // данная пицца есть
       } else {
@@ -75,7 +73,6 @@ const cartSlice = createSlice({
               .qty++;
             state.items[itemIndex].totalQty++;
             state.count = state.count + 1;
-            console.log(state.count);
             // есть вид пиццы но иной размер
           } else {
             const sizesItem = {
@@ -87,7 +84,6 @@ const cartSlice = createSlice({
             );
             state.items[itemIndex].totalQty++;
             state.count = state.count + 1;
-            console.log(state.count);
           }
           // если нету пиццы с таким типом то добавляем
         } else {
@@ -98,11 +94,30 @@ const cartSlice = createSlice({
           state.items[itemIndex].detaild.push(detaildItem);
           state.items[itemIndex].totalQty++;
           state.count = state.count + 1;
-          console.log(state.count);
         }
       }
     },
-    deleteItem(state, actions) {},
+    deleteItem(state, actions) {
+      const { id, imageUrl, title, price, activeType, activeSize } =
+        actions.payload;
+      state.items.forEach((item) => {
+        if (item.id == id) {
+          item.detaild.forEach((detaildItem) => {
+            if (detaildItem.type == activeType) {
+              detaildItem.size.forEach((sizeItem, ind) => {
+                if (sizeItem.size == activeSize) {
+                  if (sizeItem.qty <= 1) {
+                    detaildItem.size.splice(ind, 1);
+                  } else {
+                    sizeItem.qty--;
+                  }
+                }
+              });
+            }
+          });
+        }
+      });
+    },
   },
 });
 

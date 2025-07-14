@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import emptyCart from "../assets/img/empty-cart.png";
-import { addItem } from "../store/slices/cartSlice";
+import { addItem, deleteItem } from "../store/slices/cartSlice";
 
 export function CartContent() {
   const cart = useSelector((state) => state.cart.items);
@@ -43,7 +43,21 @@ export function CartContent() {
               </p>
             </div>
             <div className="cart__item-count">
-              <div className="button button--outline button--circle cart__item-count-minus">
+              <div
+                onClick={() =>
+                  dispatch(
+                    deleteItem({
+                      id: item.id,
+                      imageUrl: item.imageUrl,
+                      title: item.title,
+                      price: item.price,
+                      activeSize: sizesItem.size,
+                      activeType: detailsItem.type,
+                    })
+                  )
+                }
+                className="button button--outline button--circle cart__item-count-minus"
+              >
                 <svg
                   width="10"
                   height="10"
