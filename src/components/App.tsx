@@ -11,7 +11,7 @@ import Home from "../pages/Home.jsx";
 import NotFound from "../pages/NotFound.jsx";
 import { useDispatch, useSelector } from "react-redux";
 // импорт слайса - action
-import { setPizzas, fetchPizzas } from "../store/slices/pizzasSlice.js";
+import { fetchPizzas, setPizzas } from "../store/slices/pizzasSlice.js";
 
 interface Pizza {
   id: number;
