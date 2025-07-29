@@ -4,27 +4,6 @@ const initialState = {
   items: [],
 };
 
-// выноситься асинхронщина вне
-// createAsyncThunk - создание асинхронных дополнений
-// pizzas/fetchPizzas - индефикатор действия
-// export const fetchPizzas = createAsyncThunk(
-//   "pizzas/fetchPizzas",
-//   async (_, { rejectWithValue }) => {
-//     try {
-//       const resp = await fetch(
-//         "https://67c45d8cc4649b9551b361e2.mockapi.io/items"
-//       );
-
-//       if (!resp.ok) throw new Error("Данные не пришли");
-
-//       const data = await resp.json();
-//       return data;
-//     } catch (error) {
-//       return rejectWithValue("Данные не пришли");
-//     }
-//   }
-// );
-
 export const fetchPizzas = createAsyncThunk(
   "pizzas/fetchPizzas",
   // getState - возвращает все слайсы в рамках асинхронной функции
@@ -79,13 +58,6 @@ const pizzasSlice = createSlice({
     setPizzas(state, actions) {
       state.items = actions.payload;
     },
-
-    // ! только синхронные действия
-    // fetchPizzas(state) {
-    //   fetch("https://67c45d8cc4649b9551b361e2.mockapi.io/items")
-    //     .then((resp) => resp.json())
-    //     .then((data) => (state.items = data)); //error
-    // },
   },
   extraReducers: (builder) => {
     // .pending - перед запросом
