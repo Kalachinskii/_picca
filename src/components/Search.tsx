@@ -1,23 +1,24 @@
-import { useContext, useState } from "react";
-import { AppContext } from "./App";
+import { useState } from "react";
+import { setSearch } from "../store/slices/filterSlice";
+import { useDispatch } from "react-redux";
 
 export function Search() {
   const [value, setValue] = useState("");
-  const { setSearchValue } = useContext(AppContext);
+  const dispatch = useDispatch();
 
   return (
     <div className="search-box">
       <input
         onChange={(e) => setValue(e.target.value)}
         // запрос при Enter
-        onKeyDown={(e) => e.keyCode == 13 && setSearchValue(value)}
+        onKeyDown={(e) => e.keyCode == 13 && dispatch(setSearch(value))}
         value={value}
         type="text"
         className="search-wrapper"
         placeholder="поиск по имени"
       />
       <svg
-        onClick={() => setSearchValue(value)}
+        onClick={() => dispatch(setSearch(value))}
         className="search-btn"
         xmlns="http://www.w3.org/2000/svg"
         width="32"

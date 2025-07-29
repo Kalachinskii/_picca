@@ -2,11 +2,13 @@ import Categories from "../components/Categories";
 import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/Skeleton";
-import { useContext } from "react";
-import { AppContext } from "../components/App";
+import { useSelector } from "react-redux";
 
 function Home() {
-  const { pizzas, loading } = useContext(AppContext);
+  const { pizzas } = useSelector((state) => state.pizzas.items);
+  // затычка
+  // const loading = true;
+  const loading = false;
 
   return (
     <>
