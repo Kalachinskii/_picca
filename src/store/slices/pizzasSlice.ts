@@ -1,16 +1,26 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { RootState } from "..";
 
-const initialState = {
+interface IState {
+  items: [];
+  status: null | string;
+  error: null | string;
+}
+
+const initialState: IState = {
   items: [],
+  status: null,
+  error: null,
 };
 
 export const fetchPizzas = createAsyncThunk(
   "pizzas/fetchPizzas",
   // getState - возвращает все слайсы в рамках асинхронной функции
   async (props, { rejectWithValue, getState, dispatch }) => {
-    const activeCategory = getState().filter.category;
-    const { type, isUp } = getState().filter.sort;
-    const { search } = getState().filter.search;
+    const state = getState() as RootState;
+    const activeCategory = state.filter.category;
+    const { type, isUp } = state.filter.sort;
+    const search = state.filter.search;
     const category = activeCategory == 0 ? "" : activeCategory;
     const sort = ["rating", "price", "title"][type];
     const order = isUp ? "asc" : "desc";
@@ -33,19 +43,12 @@ export const fetchPizzas = createAsyncThunk(
           );
           dispatch(setPizzas(newData));
           return newData;
-        })
-        // .finally(setLoading(false))
-        .catch((err) => {
-          console.log(`Возникла ошибка к серверу: ${err}`);
         });
 
       const data = await resp;
-      // if (!resp.ok) throw new Error("Данные не пришли");
-
-      // const data = await resp.json();
       return data;
     } catch (error) {
-      return rejectWithValue("Данные не пришли");
+      return rejectWithValue("Ошибка запроса");
     }
   }
 );
@@ -64,15 +67,19 @@ const pizzasSlice = createSlice({
     // .fulfilled - в случаее успеха (полчучен результат)
     // .rejected - в результате запроса произошла ошибка
     builder
-      .addCase(fetchPizzas.pending, (state, action) => {
-        console.log("Загрузка данных");
+      .addCase(fetchPizzas.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
       })
       .addCase(fetchPizzas.fulfilled, (state, action) => {
-        // выполняем действие
-        console.log("Получен результат");
+        state.status = "resolved";
+        state.items = action.payload;
       })
       .addCase(fetchPizzas.rejected, (state, action) => {
-        console.log(action.payload);
+        state.status = "rejected";
+        if (typeof action.payload == "string") {
+          state.error = action.payload;
+        }
       });
   },
 });

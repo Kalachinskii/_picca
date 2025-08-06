@@ -12,6 +12,7 @@ import NotFound from "../pages/NotFound.jsx";
 import { useDispatch, useSelector } from "react-redux";
 // импорт слайса - action
 import { fetchPizzas } from "../store/slices/pizzasSlice.js";
+import { RootState } from "../store/index.js";
 
 interface Pizza {
   id: number;
@@ -34,12 +35,13 @@ export const AppContext = createContext<AppContextType | null>(null);
 
 export function App() {
   // вытащить из хранилища, state - это store
-  const activeCategory = useSelector((state) => state.filter.category);
-  const { type, isUp } = useSelector((state) => state.filter.sort);
-  const search = useSelector((state) => state.filter.search);
+  const activeCategory = useSelector(
+    (state: RootState) => state.filter.category
+  );
+  const { type, isUp } = useSelector((state: RootState) => state.filter.sort);
+  const search = useSelector((state: RootState) => state.filter.search);
   // const [searchValue, setSearchValue] = useState("");
-
-  const pizzas = useSelector((state) => state.pizzas.items);
+  const pizzas = useSelector((state: RootState) => state.pizzas.items);
   // const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
