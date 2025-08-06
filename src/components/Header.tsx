@@ -3,9 +3,10 @@ import { Link, useLocation } from "react-router-dom";
 import pizzaLogo from "../assets/img/pizza-logo.svg";
 import { Search } from "./Search";
 import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
 function Header() {
-  const { total, count } = useSelector((state) => state.cart);
+  const { total, count } = useSelector((state: RootState) => state.cart);
   const location = useLocation();
 
   return (

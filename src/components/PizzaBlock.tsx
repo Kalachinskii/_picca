@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../store/slices/cartSlice";
+import { RootState } from "../store";
+import { IItem } from "../store/slices/pizzasSlice";
 
 function PizzaBlock({
   category,
@@ -11,10 +13,10 @@ function PizzaBlock({
   sizes,
   title,
   types,
-}) {
+}: IItem) {
   const [activeSize, setActiveSize] = useState(0);
   const [activeType, setActiveType] = useState(types[0]);
-  const cartItems = useSelector((state) => state.cart.items);
+  const cartItems = useSelector((state: RootState) => state.cart.items);
   const dispatch = useDispatch();
 
   // костылики

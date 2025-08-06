@@ -1,26 +1,67 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { RootState } from "..";
 
-const initialState = {
+export interface IItem {
+  category: number;
+  id: number;
+  imageUrl: string;
+  price: number;
+  rating: number;
+  sizes: number[];
+  title: string;
+  types: number[];
+}
+
+interface IState {
+  items: IItem[];
+  status: null | string;
+  error: null | string;
+}
+
+const initialState: IState = {
   items: [],
+  status: null,
+  error: null,
 };
 
-// выноситься асинхронщина вне
-// createAsyncThunk - создание асинхронных дополнений
-// pizzas/fetchPizzas - индефикатор действия
 export const fetchPizzas = createAsyncThunk(
   "pizzas/fetchPizzas",
-  async (_, { rejectWithValue }) => {
+  // getState - возвращает все слайсы в рамках асинхронной функции
+  async (_, { rejectWithValue, getState, dispatch }) => {
+    const state = getState() as RootState;
+    const activeCategory = state.filter.category;
+    const { type, isUp } = state.filter.sort;
+    const search = state.filter.search;
+    const category = activeCategory == 0 ? "" : activeCategory;
+    const sort = ["rating", "price", "title"][type];
+    const order = isUp ? "asc" : "desc";
+
     try {
-      const resp = await fetch(
-        "https://67c45d8cc4649b9551b361e2.mockapi.io/items"
-      );
+      const resp = Promise.all([
+        fetch(
+          `https://67c45d8cc4649b9551b361e2.mockapi.io/items?category=${category}&sortBy=${sort}&order=${order}`
+        ),
+        fetch(
+          `https://67c45d8cc4649b9551b361e2.mockapi.io/items?&search=${search}`
+        ),
+      ])
+        .then(([sorted, searched]) => {
+          return Promise.all([sorted.json(), searched.json()]);
+        })
+        .then(([sorted, searched]) => {
+          const newData = sorted.filter((sortedItem: IItem) =>
+            searched.some(
+              (searchedItem: IItem) => sortedItem.id == searchedItem.id
+            )
+          );
+          dispatch(setPizzas(newData));
+          return newData;
+        });
 
-      if (!resp.ok) throw new Error("Данные не пришли");
-
-      const data = await resp.json();
+      const data = await resp;
       return data;
     } catch (error) {
-      return rejectWithValue("Данные не пришли");
+      return rejectWithValue("Ошибка запроса");
     }
   }
 );
@@ -33,28 +74,25 @@ const pizzasSlice = createSlice({
     setPizzas(state, actions) {
       state.items = actions.payload;
     },
-
-    // ! только синхронные действия
-    // fetchPizzas(state) {
-    //   fetch("https://67c45d8cc4649b9551b361e2.mockapi.io/items")
-    //     .then((resp) => resp.json())
-    //     .then((data) => (state.items = data)); //error
-    // },
   },
   extraReducers: (builder) => {
     // .pending - перед запросом
     // .fulfilled - в случаее успеха (полчучен результат)
     // .rejected - в результате запроса произошла ошибка
     builder
-      .addCase(fetchPizzas.pending, (state, action) => {
-        console.log("Загрузка данных");
+      .addCase(fetchPizzas.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
       })
       .addCase(fetchPizzas.fulfilled, (state, action) => {
-        // выполняем действие
-        console.log("Получен результат");
+        state.status = "resolved";
+        state.items = action.payload;
       })
       .addCase(fetchPizzas.rejected, (state, action) => {
-        console.log(action.payload);
+        state.status = "rejected";
+        if (typeof action.payload == "string") {
+          state.error = action.payload;
+        }
       });
   },
 });
