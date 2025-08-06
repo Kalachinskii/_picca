@@ -44,7 +44,7 @@ export function App() {
     <>
       <Routes>
         <Route element={<Layout />}>
-          <Route index element={<Home />} />
+          <Route path="" element={<Home />} />
           <Route path="cart" element={<Cart />} />
           <Route path="*" element={<NotFound />} />
         </Route>
