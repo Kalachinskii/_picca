@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting...</title>
+    <script>
+      // Перенаправляем на SPA, сохраняя путь
+      const path = window.location.pathname;
+      const repoPath = "/_picca";
+      if (path.startsWith(repoPath)) {
+        window.history.replaceState({}, "", path);
+        window.location.href = repoPath + "/#" + path.slice(repoPath.length);
+      } else {
+        window.location.href = repoPath;
+      }
+    </script>
+  </head>
+  <body>
+    Redirecting...
+  </body>
+</html>

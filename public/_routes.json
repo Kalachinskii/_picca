@@ -1,0 +1,9 @@
+{
+  "routes": [
+    {
+      "path": "/_picca/*",
+      "status": 200,
+      "target": "/_picca/index.html"
+    }
+  ]
+}
