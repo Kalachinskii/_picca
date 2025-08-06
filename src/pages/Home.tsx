@@ -6,17 +6,18 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store";
 
 function Home() {
-  const pizzas = useSelector((state) => state.pizzas.items);
+  const pizzas = useSelector((state: RootState) => state.pizzas.items);
   const status = useSelector((state: RootState) => state.pizzas.status);
   const error = useSelector((state: RootState) => state.pizzas.error);
 
-  function getTitleText(status) {
+  function getTitleText(status: string | null) {
     if (status === "loading") return "Загрузка";
     if (error) return error;
     return status === "resolved" && pizzas?.length > 0
       ? "Все пиццы"
       : "Пиццы не найдены";
   }
+  console.log(pizzas);
 
   return (
     <>

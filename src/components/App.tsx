@@ -1,18 +1,13 @@
 import "../styles/app.scss";
-// import Header from "./Header";
-// import pizzas from "../assets/pizzas.json";
-import { createContext, useEffect, useState } from "react";
-// 4. импортируем Routes, Route
-import { Routes, Route, useRoutes } from "react-router-dom";
-// import { useRoutesWrapper } from "../hooks/useRoutesWrapper.jsx";
+import { createContext, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 import Layout from "./Layout.jsx";
 import { Cart } from "../pages/Cart.jsx";
 import Home from "../pages/Home.jsx";
 import NotFound from "../pages/NotFound.jsx";
-import { useDispatch, useSelector } from "react-redux";
-// импорт слайса - action
+import { useSelector } from "react-redux";
 import { fetchPizzas } from "../store/slices/pizzasSlice.js";
-import { RootState } from "../store/index.js";
+import { RootState, useAppDispatch } from "../store/index.js";
 
 interface Pizza {
   id: number;
@@ -34,16 +29,12 @@ interface AppContextType {
 export const AppContext = createContext<AppContextType | null>(null);
 
 export function App() {
-  // вытащить из хранилища, state - это store
   const activeCategory = useSelector(
     (state: RootState) => state.filter.category
   );
   const { type, isUp } = useSelector((state: RootState) => state.filter.sort);
   const search = useSelector((state: RootState) => state.filter.search);
-  // const [searchValue, setSearchValue] = useState("");
-  const pizzas = useSelector((state: RootState) => state.pizzas.items);
-  // const [loading, setLoading] = useState(true);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchPizzas());

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { setSearch } from "../store/slices/filterSlice";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../store";
 
 export function Search() {
   const [value, setValue] = useState("");
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   return (
     <div className="search-box">

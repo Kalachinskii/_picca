@@ -1,11 +1,11 @@
-import React, { useContext, useState } from "react";
-import { AppContext } from "./App";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import { setSort } from "../store/slices/filterSlice";
+import { RootState, useAppDispatch } from "../store";
 
 function Sort() {
-  const { type, isUp } = useSelector((state) => state.filter.sort);
-  const dispatch = useDispatch();
+  const { type, isUp } = useSelector((state: RootState) => state.filter.sort);
+  const dispatch = useAppDispatch();
   const sortTypes = ["популярности", "цене", "алфавиту"];
   const [isOpen, setIsOpen] = useState(false);
 
@@ -35,7 +35,7 @@ function Sort() {
           <ul>
             {sortTypes.map((type, id) => (
               <li
-                className={type === id ? "active" : ""}
+                className={Number(type) === id ? "active" : ""}
                 key={id}
                 onClick={() => {
                   dispatch(setSort({ type: id, isUp })), setIsOpen(false);

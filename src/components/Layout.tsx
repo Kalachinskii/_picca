@@ -1,12 +1,11 @@
-import React from "react";
 import Header from "./Header";
 import { Outlet } from "react-router-dom";
 
-export default function Layout({ children, dataPiccas }) {
+export default function Layout() {
   return (
     <>
       <div className="wrapper">
-        <Header pizzas={dataPiccas} />
+        <Header />
 
         <div className="content">
           <div className="container">
@@ -14,7 +13,7 @@ export default function Layout({ children, dataPiccas }) {
           </div>
         </div>
 
-        <h1>Footer</h1>
+        {/* <h1>Footer</h1> */}
       </div>
     </>
   );

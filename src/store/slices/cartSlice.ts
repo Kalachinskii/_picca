@@ -18,7 +18,7 @@ interface ICartItem {
   totalQty: number;
   detaild: IDetaildsItem[];
 }
-interface IInitialState {
+export interface IInitialState {
   items: ICartItem[];
   total: number;
   count: number;

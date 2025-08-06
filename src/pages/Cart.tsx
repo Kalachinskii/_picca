@@ -2,11 +2,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { CartContent } from "../components/CartContent";
 import { Link } from "react-router-dom";
 import { clearItems } from "../store/slices/cartSlice";
+import { RootState } from "../store";
 
 export const Cart = () => {
-  const cart = useSelector((state) => state.cart.items);
-  const total = useSelector((state) => state.cart.total);
-  const count = useSelector((state) => state.cart.count);
+  const cart = useSelector((state: RootState) => state.cart.items);
+  const total = useSelector((state: RootState) => state.cart.total);
+  const count = useSelector((state: RootState) => state.cart.count);
   const dispatch = useDispatch();
 
   return (

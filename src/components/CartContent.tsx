@@ -1,11 +1,11 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import emptyCart from "../assets/img/empty-cart.png";
 import { addItem, deleteItem } from "../store/slices/cartSlice";
-import { RootState } from "../store";
+import { RootState, useAppDispatch } from "../store";
 
 export function CartContent() {
   const cart = useSelector((state: RootState) => state.cart.items);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   // костылики
   const types = ["тонкое", "традиционное"];

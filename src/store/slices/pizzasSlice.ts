@@ -1,8 +1,19 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "..";
 
+export interface IItem {
+  category: number;
+  id: number;
+  imageUrl: string;
+  price: number;
+  rating: number;
+  sizes: number[];
+  title: string;
+  types: number[];
+}
+
 interface IState {
-  items: [];
+  items: IItem[];
   status: null | string;
   error: null | string;
 }
@@ -16,7 +27,7 @@ const initialState: IState = {
 export const fetchPizzas = createAsyncThunk(
   "pizzas/fetchPizzas",
   // getState - возвращает все слайсы в рамках асинхронной функции
-  async (props, { rejectWithValue, getState, dispatch }) => {
+  async (_, { rejectWithValue, getState, dispatch }) => {
     const state = getState() as RootState;
     const activeCategory = state.filter.category;
     const { type, isUp } = state.filter.sort;
@@ -38,8 +49,10 @@ export const fetchPizzas = createAsyncThunk(
           return Promise.all([sorted.json(), searched.json()]);
         })
         .then(([sorted, searched]) => {
-          const newData = sorted.filter((sortedItem) =>
-            searched.some((searchedItem) => sortedItem.id == searchedItem.id)
+          const newData = sorted.filter((sortedItem: IItem) =>
+            searched.some(
+              (searchedItem: IItem) => sortedItem.id == searchedItem.id
+            )
           );
           dispatch(setPizzas(newData));
           return newData;
