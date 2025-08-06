@@ -10,7 +10,7 @@ import { Provider } from "react-redux";
 import { store } from "./store";
 
 createRoot(document.getElementById("root") as HTMLElement).render(
-  <BrowserRouter>
+  <BrowserRouter basename="/_picca">
     <Provider store={store}>
       <App />
     </Provider>
