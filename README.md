@@ -42,7 +42,9 @@
 - **Управление состоянием:** Redux Toolkit
 - **Маршрутизация:** React Router
 - **Стилизация:** SCSS (Sass)
+- **Backend-as-a-Service:** MockAPI (REST API)
 - **HTTP-клиент:** Axios
+- **Улучшение UX:** React Content Loader (скелетоны)
 - **Деплой:** GitHub Actions
 
 ## Установка и запуск
