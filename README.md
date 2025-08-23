@@ -43,7 +43,7 @@
 - **Маршрутизация:** React Router
 - **Стилизация:** SCSS (Sass)
 - **Backend-as-a-Service:** MockAPI (REST API)
-- **HTTP-клиент:** Axios
+- **HTTP-клиент:** Fetch API + обработка Promise.all
 - **Улучшение UX:** React Content Loader (скелетоны)
 - **Деплой:** GitHub Actions
 
