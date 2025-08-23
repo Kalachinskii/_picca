@@ -53,7 +53,7 @@
 1.  **Склонируйте репозиторий и сразу перейдите в созданную папку:**
 
     ```bash
-    git clone https://github.com/Kalachinskii/_picca.git && cd _picca
+    git clone https://github.com/Kalachinskii/_picca.git; cd _picca
     ```
 
 2.  **Установите зависимости:**
